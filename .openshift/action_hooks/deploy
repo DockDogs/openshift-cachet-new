@@ -5,8 +5,6 @@ echo "deploying..."
 source $OPENSHIFT_PHP_DIR/lib/util
 export PATH=${OPENSHIFT_PHP_DIR}usr/bin:/bin:/usr/bin:/usr/sbin
 
-cp $OPENSHIFT_REPO_DIR/env $OPENSHIFT_REPO_DIR/Cachet/.env
-
 # set environment variables
 echo "$OPENSHIFT_MYSQL_DB_HOST" > ~/.env/user_vars/DB_HOST
 echo "$OPENSHIFT_APP_NAME" > ~/.env/user_vars/DB_DATABASE
@@ -29,7 +27,7 @@ build_nginx_config & build_phpfpm_config
 # get cachet if doesn't exist
 if [ ! -d $OPENSHIFT_REPO_DIR/Cachet ]; then
         cd $OPENSHIFT_REPO_DIR
-        git clone https://github.com/cachethq/Cachet.git Cachet
+        git clone -b L5 https://github.com/cachethq/Cachet.git Cachet
 else
 	cp $OPENSHIFT_REPO_DIR/Cachet/composer.json.orig $OPENSHIFT_REPO_DIR/Cachet/composer.json
 	cp $OPENSHIFT_REPO_DIR/Cachet/composer.lock.orig $OPENSHIFT_REPO_DIR/Cachet/composer.lock
